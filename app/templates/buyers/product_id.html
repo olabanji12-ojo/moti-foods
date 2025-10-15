@@ -1,0 +1,196 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<!-- Product Detail Section -->
+<section class="py-8 md:py-16 px-4 bg-white">
+  <div class="max-w-6xl mx-auto">
+    
+    <!-- Back Button -->
+    <a href="{% url 'product_page' %}" class="inline-flex items-center text-[#8B5E3C] hover:text-[#6B4423] font-semibold mb-6 transition">
+      <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+      </svg>
+      Back to Products
+    </a>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+      
+      <!-- Left Column - Image Carousel -->
+      <div class="space-y-4">
+        <!-- Main Image Display -->
+        <div class="relative bg-gray-100 rounded-lg overflow-hidden" style="height: 500px;">
+          <img id="mainImage" 
+               src="{{ product.product_image.url }}" 
+               alt="{{ product.name }}" 
+               class="w-full h-full object-cover">
+          
+          <!-- Carousel Navigation Arrows -->
+          <button id="prevBtn" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-3 rounded-full shadow-lg transition">
+            <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+          </button>
+          <button id="nextBtn" class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-3 rounded-full shadow-lg transition">
+            <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </button>
+
+          <!-- Image Counter -->
+          <div class="absolute bottom-4 right-4 bg-black/60 text-white px-3 py-1 rounded-full text-sm">
+            <span id="currentImage">1</span> / <span id="totalImages">4</span>
+          </div>
+        </div>
+
+        <!-- Thumbnail Images -->
+        <div class="grid grid-cols-4 gap-3">
+          <button class="thumbnail-btn border-2 border-[#8B5E3C] rounded-lg overflow-hidden" data-index="0">
+            <img src="{{ product.product_image.url }}" alt="Thumbnail 1" class="w-full h-24 object-cover">
+          </button>
+          <button class="thumbnail-btn border-2 border-gray-300 rounded-lg overflow-hidden" data-index="1">
+            <img src="{{ product.product_image.url }}" alt="Thumbnail 2" class="w-full h-24 object-cover">
+          </button>
+          <button class="thumbnail-btn border-2 border-gray-300 rounded-lg overflow-hidden" data-index="2">
+            <img src="{{ product.product_image.url }}" alt="Thumbnail 3" class="w-full h-24 object-cover">
+          </button>
+          <button class="thumbnail-btn border-2 border-gray-300 rounded-lg overflow-hidden" data-index="3">
+            <img src="{{ product.product_image.url }}" alt="Thumbnail 4" class="w-full h-24 object-cover">
+          </button>
+        </div>
+      </div>
+
+      <!-- Right Column - Product Info -->
+      <div class="space-y-6">
+        <!-- Product Name -->
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-800">{{ product.name }}</h1>
+
+        <!-- Rating (Optional) -->
+        <div class="flex items-center gap-2">
+          <div class="flex gap-1">
+            <span class="text-yellow-400 text-xl">★</span>
+            <span class="text-yellow-400 text-xl">★</span>
+            <span class="text-yellow-400 text-xl">★</span>
+            <span class="text-yellow-400 text-xl">★</span>
+            <span class="text-yellow-400 text-xl">★</span>
+          </div>
+          <span class="text-gray-600">(24 reviews)</span>
+        </div>
+
+        <!-- Price -->
+        <div class="flex items-baseline gap-3">
+          <p class="text-4xl font-bold text-[#8B5E3C]">₦{{ product.price }}</p>
+          <!-- Optional: Original Price with strikethrough -->
+          <!-- <p class="text-xl text-gray-500 line-through">₦5,000</p> -->
+        </div>
+
+        <!-- Description -->
+        <div class="border-t border-b border-gray-200 py-6">
+          <h3 class="text-lg font-semibold mb-3 text-gray-800">Description</h3>
+          <p class="text-gray-600 leading-relaxed">
+            {{ product.description }}
+          </p>
+        </div>
+
+        <!-- Add to Cart Button -->
+        <button id="addToCartBtn" 
+                class="w-full bg-[#8B5E3C] hover:bg-[#6B4423] text-white font-bold py-4 rounded-lg transition duration-300 flex items-center justify-center gap-3 text-lg shadow-lg hover:shadow-xl add-to-cart"
+                data-product-id="{{ product.id }}" data-action="add">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+          </svg>
+          Add to Cart
+        </button>
+
+        <!-- Additional Info -->
+        <div class="space-y-3 pt-6 border-t border-gray-200">
+          <div class="flex items-center gap-3 text-gray-700">
+            <svg class="w-5 h-5 text-[#8B5E3C]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span>Free delivery on orders over ₦10,000</span>
+          </div>
+          <div class="flex items-center gap-3 text-gray-700">
+            <svg class="w-5 h-5 text-[#8B5E3C]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span>Fresh products delivered daily</span>
+          </div>
+          <div class="flex items-center gap-3 text-gray-700">
+            <svg class="w-5 h-5 text-[#8B5E3C]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span>100% satisfaction guarantee</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Related Products Section -->
+<!-- <section class="py-16 px-4 bg-gray-50">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-3xl font-bold mb-8 text-gray-800">You May Also Like</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+       Add related products here - you can loop through similar products 
+    </div>
+  </div>
+</section> -->
+
+<script>
+  // Image Carousel Functionality
+  const images = [
+    "{{ product.product_image.url }}",
+    "{{ product.product_image.url }}", // Replace with actual additional images
+    "{{ product.product_image.url }}",
+    "{{ product.product_image.url }}"
+  ];
+  
+  let currentIndex = 0;
+  const mainImage = document.getElementById('mainImage');
+  const currentImageSpan = document.getElementById('currentImage');
+  const totalImagesSpan = document.getElementById('totalImages');
+  const thumbnails = document.querySelectorAll('.thumbnail-btn');
+  
+  totalImagesSpan.textContent = images.length;
+  
+  function updateImage(index) {
+    currentIndex = index;
+    mainImage.src = images[currentIndex];
+    currentImageSpan.textContent = currentIndex + 1;
+    
+    // Update thumbnail borders
+    thumbnails.forEach((thumb, i) => {
+      if (i === currentIndex) {
+        thumb.classList.remove('border-gray-300');
+        thumb.classList.add('border-[#8B5E3C]');
+      } else {
+        thumb.classList.remove('border-[#8B5E3C]');
+        thumb.classList.add('border-gray-300');
+      }
+    });
+  }
+  
+  document.getElementById('prevBtn').addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    updateImage(currentIndex);
+  });
+  
+  document.getElementById('nextBtn').addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % images.length;
+    updateImage(currentIndex);
+  });
+  
+  thumbnails.forEach((thumb, index) => {
+    thumb.addEventListener('click', () => {
+      updateImage(index);
+    });
+  });
+  
+</script>
+
+{% endblock %}

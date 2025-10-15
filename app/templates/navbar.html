@@ -1,0 +1,74 @@
+{% load static %}
+
+<nav class="bg-[#8B5E3C] text-white fixed top-0 left-0 w-full z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        
+        <!-- Logo -->
+        <div class="flex-shrink-0">
+          <h1 class="text-xl font-bold">Sweet Treats Bakery</h1>
+        </div> 
+
+        <!-- Mobile Cart Icon (Visible on mobile, to the left of hamburger) -->
+        <div class="flex items-center space-x-6 md:hidden">
+          <a href="{% url 'cart' %}" class="flex items-center gap-1">
+            <div class="relative">
+              <svg class="w-5 h-5 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.2 6H19m-12 0a1 1 0 11-2 0 1 1 0 012 0zm12 0a1 1 0 11-2 0 1 1 0 012 0z"/>
+              </svg>
+              <span class="cart-items-count absolute -top-2 -right-2 bg-red-600 text-xs font-bold rounded-full px-1">
+                {{ cart_items_count }}
+              </span>
+            </div>
+          </a>
+          <!-- Mobile Menu Button -->
+          <button id="menu-btn" class="focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex space-x-6 items-center">
+          <a href="{% url 'welcome' %}" class="hover:text-yellow-200 font-semibold">Home</a>
+          <a href="{% url 'product_page' %}" class="hover:text-yellow-200 font-semibold">Products</a>
+          {% if request.user.is_authenticated %}
+          <a href="{% url 'logout_page' %}" class="hover:text-yellow-200 font-semibold">Logout</a>
+          {% else %}
+          <a href="{% url 'login_page' %}" class="hover:text-yellow-200 font-semibold">Login</a>
+          {% endif %}
+          <a href="{% url 'cart' %}" class="hover:text-yellow-200 font-semibold flex items-center gap-1 ">
+            Cart
+            <div class="relative">
+              <svg class="w-5 h-5 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.2 6H19m-12 0a1 1 0 11-2 0 1 1 0 012 0zm12 0a1 1 0 11-2 0 1 1 0 012 0z"/>
+              </svg>
+              <span class="cart-items-count absolute -top-2 -right-2 bg-red-600 text-xs font-bold rounded-full px-1">
+                {{ cart_items_count }}
+              </span> 
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Drawer Menu -->
+  <div id="mobile-menu"
+       class="fixed inset-y-0 left-0 w-64 bg-[#8B5E3C] text-white p-6 space-y-4 
+              transform -translate-x-full transition duration-300 ease-in-out md:hidden z-50">
+    <a href="{% url 'welcome' %}" class="block font-semibold hover:text-yellow-200">Home</a>
+    <a href="{% url 'product_page' %}" class="block font-semibold hover:text-yellow-200">Products</a>
+    {% if request.user.is_authenticated %}
+    <a href="{% url 'logout_page' %}" class="block font-semibold hover:text-yellow-200">Logout</a>
+    {% else %}
+    <a href="{% url 'login_page' %}" class="block font-semibold hover:text-yellow-200">Login</a>
+    {% endif %}
+    
+  </div>
+  
+

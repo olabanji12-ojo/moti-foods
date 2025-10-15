@@ -1,0 +1,170 @@
+{% load static %}
+
+<!-- Hero Section -->
+<section class="relative h-[500px] bg-cover">
+
+  <!-- Overlay -->
+  <div class="absolute inset-0 bg-opacity-40 bg-[url('/static/images/banana-background.jpg')] bg-cover bg-center"></div>
+
+  <!-- Content -->
+  <div class="relative z-10 flex flex-col items-center justify-center h-full text-white text-center px-4">
+    <h1 class="text-4xl md:text-6xl font-bold mb-4 leading-tight">
+      Freshly Baked Daily,<br>
+      Delivered with Love
+    </h1>
+
+    <p class="text-xl md:text-2xl mb-8 italic font-light">
+      Homemade Banana Bread & Authentic Zobo Drinks
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-4">
+        <!-- how do i link it to the bread side of the page -->
+      <a href="{% url 'product_page' %}" class="bg-[#8B5E3C] hover:bg-[#6B4423] text-white font-semibold px-8 py-3 rounded transition duration-300">
+        Shop Banana Bread
+      </a>
+      <!-- how do i link it to the zobo side of the page -->
+      <a href="{% url 'product_page' %}" class="bg-red-700 hover:bg-red-800 text-white font-semibold px-8 py-3 rounded transition duration-300">
+        Try Our Zobo
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Products Section -->
+<section class="py-16 px-4 bg-white">
+    <div class="max-w-6xl mx-auto">
+      
+      <!-- Section Title -->
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800">Featured Products</h2>
+      
+      <!-- Products Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+        
+        <!-- Product 1: Banana Bread -->
+        {% if first_bread %}
+       
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+          <a href="{% url 'product_id' first_bread.id %}">
+          <img src="{{ first_bread.product_image.url }}" 
+               alt="{{ first_bread.name }}" 
+               class="w-full h-64 object-cover">
+          </a>
+          
+          <div class="p-6">
+            <h3 class="text-2xl font-bold mb-3 text-gray-800">{{ first_bread.name }}</h3>
+            
+            <p class="text-gray-600 mb-4">
+              {{ first_bread.description|truncatewords:20 }}
+            </p>
+            
+            <p class="text-3xl font-bold text-gray-800 mb-4">₦{{ first_bread.price }}</p>
+            
+            <button class="add-to-cart  w-full bg-[#8B5E3C] hover:bg-[#6B4423] text-white font-semibold py-3 rounded transition duration-300 flex items-center justify-center gap-2"
+            data-product-id="{{ first_bread.id }}" 
+            data-action="add">
+              <span class="text-xl">+</span>
+              Add to Cart
+            </button>
+          </div>
+        </div>
+        {% endif %}
+        
+        <!-- Product 2: Zobo -->
+        {% if first_drink %}
+       
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+          <a href="{% url 'product_id' first_drink.id %}">
+          <img src="{{ first_drink.product_image.url }}" 
+               alt="{{ first_drink.name }}" 
+               class="w-full h-64 object-cover">
+          </a>
+          
+          <div class="p-6">
+            <h3 class="text-2xl font-bold mb-3 text-gray-800">{{ first_drink.name }}</h3>
+            
+            <p class="text-gray-600 mb-4">
+              {{ first_drink.description|truncatewords:20 }}
+            </p>
+            
+            <p class="text-3xl font-bold text-gray-800 mb-4">₦{{ first_drink.price }}</p>
+            
+            <button class="add-to-cart w-full bg-[#8B5E3C] hover:bg-[#6B4423] text-white font-semibold py-3 rounded transition duration-300 flex items-center justify-center gap-2"
+            data-product-id="{{ first_drink.id }}" 
+            data-action="add">
+              <span class="text-xl">+</span>
+              Add to Cart
+            </button>
+          </div>
+        </div>
+        </a>
+        {% endif %}
+        
+      </div>
+      
+      <!-- View All Products Link -->
+      <div class="text-center">
+        <a href="{% url 'product_page' %}" class="inline-flex items-center gap-2 text-gray-700 hover:text-[#8B5E3C] font-semibold text-lg transition duration-300">
+          View All Products
+          <span class="text-xl">→</span>
+        </a>
+      </div>
+      
+    </div>
+  </section>
+  
+  <!-- Why Choose Us Section -->
+<section class="py-16 px-4 bg-gray-100">
+    <div class="max-w-6xl mx-auto">
+      
+      <!-- Section Title -->
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800">Why Choose Us</h2>
+      
+      <!-- Features Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Feature 1: Fresh Daily -->
+        <div class="text-center">
+          <div class="bg-[#8B5E3C] w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-gray-800">Fresh Daily</h3>
+          <p class="text-gray-600">
+            All our products are baked fresh every morning with the finest ingredients.
+          </p>
+        </div>
+        
+        <!-- Feature 2: Local Ingredients -->
+        <div class="text-center">
+          <div class="bg-[#8B5E3C] w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                    d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-gray-800">Local Ingredients</h3>
+          <p class="text-gray-600">
+            We source our ingredients locally to support our community and ensure quality.
+          </p>
+        </div>
+        
+        <!-- Feature 3: Made with Love -->
+        <div class="text-center">
+          <div class="bg-[#8B5E3C] w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-gray-800">Made with Love</h3>
+          <p class="text-gray-600">
+            Every item is handcrafted with care and passion for exceptional taste.
+          </p>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+  
