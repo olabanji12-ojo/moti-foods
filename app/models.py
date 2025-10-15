@@ -24,7 +24,7 @@ class Product(models.Model):
     name = models.CharField(max_length=200)
     price = models.DecimalField(max_digits=7, decimal_places=2)
     description = models.TextField(blank=True)
-    product_image = models.ImageField(upload_to="products/")
+    product_image = models.ImageField(upload_to="")
     stock = models.PositiveIntegerField(default=0)
     available = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
